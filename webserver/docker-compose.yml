@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  webserver:
+    build: .
+    container_name: ec2-webserver
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=${DB_HOST:-db}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_USER=${DB_USER:-testuser}
+      - DB_PASSWORD=${DB_PASSWORD:-testpassword}
+      - DB_NAME=${DB_NAME:-testdb}
+      - PORT=3000
+    depends_on:
+      - db
+    networks:
+      - webserver-network
+    volumes:
+      - ./logs:/app/logs
+
+  db:
+    image: mysql:8.0
+    container_name: ec2-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-testdb}
+      MYSQL_USER: ${MYSQL_USER:-testuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-testpassword}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - webserver-network
+
+volumes:
+  mysql_data:
+
+networks:
+  webserver-network:
+    driver: bridge

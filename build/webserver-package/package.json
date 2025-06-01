@@ -1,0 +1,33 @@
+{
+  "name": "ec2-db-connection-tester",
+  "version": "1.0.0",
+  "description": "Web application to test EC2-to-EC2 database connectivity",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "npm install && cd frontend && npm install",
+    "package": "../deployment/build-and-package.sh",
+    "test:db": "node -e \"require('./test-db-connection.js')\"",
+    "start:prod": "./start.sh",
+    "stop:prod": "./stop.sh",
+    "docker:build": "docker build -t ec2-webserver .",
+    "docker:run": "docker-compose up -d",
+    "docker:stop": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["ec2", "mysql", "connectivity", "test"],
+  "author": "",
+  "license": "MIT"
+}
