@@ -84,24 +84,24 @@ function App() {
         <div className="status-card">
           <div className="status-header">
             <h3>データベース接続状態</h3>
-            <div className={`status-indicator ${dbResult?.success ? 'healthy' : 'unhealthy'}`}>
-              {dbResult?.success ? '✅ 接続成功' : '❌ 接続失敗'}
+            <div className={`status-indicator ${dbResult?.success ? "healthy" : "unhealthy"}`}>
+              {dbResult?.success ? "接続成功" : "接続失敗"}
             </div>
           </div>
           <div className="status-details">
             {dbResult && (
               <>
                 <p><strong>メッセージ:</strong> {dbResult.message}</p>
-                <p><strong>DB ホスト:</strong> {dbResult.data?.db_config.host || dbResult.db_config?.host || 'N/A'}</p>
-                <p><strong>DB ポート:</strong> {dbResult.data?.db_config.port || dbResult.db_config?.port || 'N/A'}</p>
-                <p><strong>データベース:</strong> {dbResult.data?.db_config.database || dbResult.db_config?.database || 'N/A'}</p>
-                <p><strong>応答時間:</strong> {dbResult.data?.response_time_ms || dbResult.response_time_ms || 'N/A'}ms</p>
+                <p><strong>DB ホスト:</strong> {dbResult.data?.db_config.host || dbResult.db_config?.host || "N/A"}</p>
+                <p><strong>DB ポート:</strong> {dbResult.data?.db_config.port || dbResult.db_config?.port || "N/A"}</p>
+                <p><strong>データベース:</strong> {dbResult.data?.db_config.database || dbResult.db_config?.database || "N/A"}</p>
+                <p><strong>応答時間:</strong> {dbResult.data?.response_time_ms || dbResult.response_time_ms || "N/A"}ms</p>
                 
                 {dbResult.success && dbResult.data && (
                   <>
                     <p><strong>MySQL バージョン:</strong> {dbResult.data.mysql_version}</p>
                     <p><strong>接続ID:</strong> {dbResult.data.connection_id}</p>
-                    <p><strong>サーバー時刻:</strong> {new Date(dbResult.data.server_time).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}</p>
+                    <p><strong>サーバー時刻:</strong> {new Date(dbResult.data.server_time).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}</p>
                   </>
                 )}
                 
@@ -122,12 +122,12 @@ function App() {
             disabled={isLoading}
             className="test-button"
           >
-            {isLoading ? '🔄 テスト中...' : '🔍 接続テスト実行'}
+            {isLoading ? "テスト中..." : "接続テスト実行"}
           </button>
           
           {lastChecked && (
             <p className="last-checked">
-              最終テスト実行: {lastChecked.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}
+              最終テスト実行: {lastChecked.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}
             </p>
           )}
         </div>

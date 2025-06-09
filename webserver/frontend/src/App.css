@@ -32,19 +32,7 @@
   background-clip: text;
 }
 
-.subtitle {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #666;
-  line-height: 1.6;
-}
 
-.status-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
 
 .status-card {
   background: #fff;
@@ -147,37 +135,7 @@
   font-style: italic;
 }
 
-.info-section {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background: #f8f9fa;
-  border-radius: 12px;
-}
 
-.info-section h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-.info-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.95rem;
-}
-
-.info-item strong {
-  font-weight: 600;
-  color: #495057;
-}
 
 @media (max-width: 768px) {
   .container {
@@ -187,10 +145,6 @@
   
   .header h1 {
     font-size: 2rem;
-  }
-  
-  .status-grid {
-    grid-template-columns: 1fr;
   }
   
   .status-header {

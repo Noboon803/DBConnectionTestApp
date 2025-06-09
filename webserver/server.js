@@ -45,8 +45,7 @@ app.get('/api/db-test', async (req, res) => {
     });
 
     connection = await mysql.createConnection(dbConfig);
-    
-    // Test query - 東京時間で取得
+
     const [rows] = await connection.execute('SELECT CONVERT_TZ(NOW(), @@session.time_zone, "+09:00") as server_time, CONNECTION_ID() as connection_id, VERSION() as mysql_version');
     const responseTime = Date.now() - startTime;
     
