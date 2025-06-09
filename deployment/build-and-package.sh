@@ -1,60 +1,37 @@
 #!/bin/bash
-
-# Build and Package Script for Web Server
-# このスクリプトは、ローカル環境でWebアプリケーションをビルドし、
-# S3にアップロード可能なアーティファクトを作成します
-
 set -e
 
-echo "=== Building Web Server Application ==="
+PROJECT_ROOT="$(dirname "$0")/.."
+cd "$PROJECT_ROOT"
 
-# プロジェクトのルートディレクトリに移動
-cd "$(dirname "$0")/../webserver"
-
-# 依存関係のインストール
-echo "Installing dependencies..."
+#
+# STEP1 : フロントエンドの依存関係とビルド
+#
+cd webserver/frontend
 npm install
-
-# フロントエンドの依存関係のインストール
-echo "Installing frontend dependencies..."
-cd frontend
-npm install
-
-# フロントエンドのビルド
-echo "Building frontend..."
 npm run build
-
-# webserverディレクトリに戻る
 cd ..
 
-# パッケージディレクトリの作成
-echo "Creating package directory..."
+#
+# STEP2 : Webサーバーの依存関係インストール
+#
+npm install
+
+#
+# STEP3 : パッケージディレクトリの作成
+#
 PACKAGE_DIR="../build/webserver-package"
 rm -rf "$PACKAGE_DIR"
 mkdir -p "$PACKAGE_DIR"
 
-# 必要なファイルをコピー
-echo "Copying files..."
+#
+# STEP4 : 必要なファイルをコピー
+#
 cp package.json "$PACKAGE_DIR/"
-cp package-lock.json "$PACKAGE_DIR/" 2>/dev/null || echo "package-lock.json not found, skipping..."
+cp package-lock.json "$PACKAGE_DIR/" 2>/dev/null || true
 cp server.js "$PACKAGE_DIR/"
-cp .env.production "$PACKAGE_DIR/.env"
-cp -r dist "$PACKAGE_DIR/" 2>/dev/null || echo "dist directory not found, skipping..."
+cp test-db-connection.js "$PACKAGE_DIR/"
+cp ecosystem.config.json "$PACKAGE_DIR/"
+cp .env.production "$PACKAGE_DIR/.env" 2>/dev/null || echo "No .env.production found, skipping..."
+cp -r dist "$PACKAGE_DIR/" 2>/dev/null || echo "No dist directory found, skipping..."
 
-# node_modulesは除外し、productionインストール用のpackage.jsonのみコピー
-
-# アーティファクトの作成
-echo "Creating deployment artifact..."
-cd ../build
-tar -czf webserver-latest.tar.gz webserver-package
-
-echo "=== Build Completed ==="
-echo "Deployment artifact created: build/webserver-latest.tar.gz"
-echo ""
-echo "Next steps:"
-echo "1. Upload webserver-latest.tar.gz to S3:"
-echo "   aws s3 cp build/webserver-latest.tar.gz s3://your-deployment-bucket/webserver/"
-echo ""
-echo "2. Update the S3_BUCKET and S3_OBJECT_KEY variables in ec2-webserver-userdata.sh"
-echo ""
-echo "3. Use ec2-webserver-userdata.sh as User Data when launching the EC2 instance"
