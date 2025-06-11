@@ -68,10 +68,10 @@ cp dbserver/init.sql "$PACKAGE_DIR/"
 echo "Creating .env.template..."
 
 cat > "$PACKAGE_DIR/.env.template" << 'EOF'
-MYSQL_ROOT_PASSWORD=RootPass456!Hoge
+MYSQL_ROOT_PASSWORD=<your_root_password>
 MYSQL_DATABASE=testdb
 MYSQL_USER=testuser
-MYSQL_PASSWORD=PassPass123!Hoge
+MYSQL_PASSWORD=<your_password>
 EOF
 
 #

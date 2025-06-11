@@ -11,7 +11,7 @@ S3_PREFIX="webserver"
 DB_HOST="10.0.2.100"
 DB_PORT="3306"
 DB_USER="testuser"
-DB_PASSWORD="PassPass123!Hoge"
+DB_PASSWORD="<your_password>"
 DB_NAME="testdb"
 
 #
