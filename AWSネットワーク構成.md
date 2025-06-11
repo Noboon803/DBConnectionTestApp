@@ -65,13 +65,7 @@ EC2インスタンスがS3からパッケージをダウンロードするため
 ### キーペアファイルの準備
 ```bash
 # CloudShellに秘密鍵をアップロードした後、権限を設定
-
-# 同じキーペアを両サーバーで使用する場合
 chmod 400 your-key-pair.pem
-
-# 異なるキーペアを使用する場合
-chmod 400 webserver-key.pem
-chmod 400 dbserver-key.pem
 
 # キーペアファイルの確認
 ls -la *.pem
